@@ -111,7 +111,20 @@ Een lint-tweeter en diens transformator hebben een zeer lage DC-weerstand.
 
 ---
 
-## 7. Samenvatting van de Aanbevelingen
+## 7. Geïntegreerde Behuizingsfuncties in `ribbon_tweeter_driver.scad`
+
+1. **Zij-inloop Magneetsleuven met M3 Borgpen-Gaten:**
+   * De N52 magneten worden via de zijkanten ingeschoven. Aan het uiteinde van de sleuven zitten M3 borgpen-gaten. Zodra de magneten op hun plek zitten, draai je hier een M3 schroefje in, zodat de magneten nooit door trillingen los kunnen raken.
+2. **Kabel-Gootjes voor Trafo-Draden:**
+   * Aan de bovenzijde en onderzijde bij de koperen contact-pads zitten kabelgootjes waarmee de dikke secundaire getwiste koperdraden van de transformator netjes naar buiten geleid worden.
+3. **Geïntegreerde Montage-Oren voor Trafo & Condensator:**
+   * De behuizing heeft verlengde montage-flenzen aan de achterkant voorzien van 4x M4 schroefgaten. Hierop schroef je de transformator en de $3.7\ \mu\text{F}$ audio-condensator rechtstreeks vast, wat zorgt voor één compacte, trillingsvrije module.
+4. **TPU Flexibele Demping-Pakkingen:**
+   * Het CAD-bestand bevat 3D-geprinte TPU dempingsstrips die tussen het aluminium lint en de stijve klemblokken liggen om mechanische trillingen te dempen en inscheuren te voorkomen.
+
+---
+
+## 8. Samenvatting van de Aanbevelingen
 
 * **Geadviseerd Aantal Windingen:** **2 Secundaire windingen ($N_s = 2$)** en **29 Primaire windingen ($N_p = 29$)**.
 * **Kernkeuze:** **FT240-43 Ferrietkern**. (De opgerolde metalen toroid is ongeschikt voor 4 kHz - 25 kHz).
