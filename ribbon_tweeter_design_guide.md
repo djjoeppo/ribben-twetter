@@ -65,9 +65,48 @@ Wanneer je 1 lang lint van 12-13 cm gebruikt en dit in het midden ondersteunt/va
 
 ---
 
-## 4. Klemmen, Elektrische Aansluiting & TPU-Demping
+### 3.4 Corrugatie: Vormen, Maten, Dieptes en Hoeveelheden (Voor- en Nadelen)
 
-* **Elektrisch Contact:** De uiteinden van het aluminiumfolie worden vastgeklemd tussen zelfklevende **koperen tape**. Hierop wordt de secundaire draad van de trafo gesoldeerd.
+De corrugatie (het plooien/golfplaten van het lint) is cruciaal voor de mechanische stijfheid, de resonantiefrequentie, de slaglengte (excursie) en het voorkomen van vervorming bij hoge geluidsdruk (PA-gebruik).
+
+#### **1. Soorten Corrugatievormen (Voor- en Nadelen)**
+
+| Vorm / Type | Beschrijving | Voordelen | Nadelen | Geschiktheid PA High-SPL |
+| :--- | :--- | :--- | :--- | :--- |
+| **Fijne Dwars-corrugatie** *(Steek 0.8 - 1.2 mm)* | Rechte golfjes dwars op de lengterichting, dicht op elkaar. | • Uitstekende elasticiteit & excursie.<br>• Minimale mechanische resonantie-pieken.<br>• Hoge HF-extensie (>20 kHz). | • Kwetsbaar bij assemblage.<br>• Lint kan zijdelings licht doorbuigen bij 12 cm lengte. | **Uitstekend (Aanbevolen met middenklem)** |
+| **Grove Dwars-corrugatie** *(Steek 2.0 - 3.5 mm)* | Grote, brede golfslagen met veel afstand ertussen. | • Eenvoudig handmatig te maken met standaard tandwielen. | • Stijver in HF-bereik (verhoogt de vervorming).<br>• Lagere mechanische max. excursie voor het permanent rekt. | **Matig** |
+| **Diagonale / Visgraat (Chevron) Corrugatie** | Golfjes onder een hoek van $30^\circ - 45^\circ$ of in een V-patroon. | • Vliegtuigstijfheid in de breedte: voorkomt torsie en zijdelings 'schuren' tegen magneten.<br>• Zeer strakke lineaire beweging. | • Vereist speciaal 3D-geprint schuin tandwielpaar.<br>• Iets meer effectieve lengte/massa. | **Uitstekend (Beste voor lange linten van 12 cm)** |
+| **Vlak / Ongecorrugeerd Lint** | Volledig glad aluminiumfolie. | • Geen corrugator nodig.<br>• Laagste massa per lengte-eenheid. | • **Rampzalig voor High-SPL:** Vervormt/rekt direct permanent bij hitte/excursie.<br>• Heeft hevig storende resonanties. | **Absoluut Ongeschikt** |
+
+#### **2. Corrugatiediepte / Amplitude (Voor- en Nadelen)**
+* **Ondiepe Corrugatie (0.2 – 0.3 mm diepte):**
+  * *Voordeel:* Minimale lengte-toename van de folie, dus laagste weerstand en hoogste efficiëntie.
+  * *Nadeel:* Weinig veerweg/excursie. Kan bij hoge SPL snel uitrekken of inscheuren.
+* **Middelgrote Corrugatie (0.5 – 0.8 mm diepte) [OPTIAAL FOR PA]:**
+  * *Voordeel:* **Perfecte balans.** Voldoende mechanische veerweg voor lage vervorming bij $4\text{ kHz}$ wethoudende slagen, zonder overtollige massa.
+* **Diepe Corrugatie (> 1.0 mm diepte):**
+  * *Voordeel:* Extreem elastisch, kan gigantische uitslag maken.
+  * *Nadeel:* Te veel folielengte nodig voor dezelfde $12\text{ cm}$ afstand $\rightarrow$ hogere massa en hogere elektrische weerstand, wat het akoestisch rendement (+SPL) drastisch verlaagt.
+
+#### **3. Hoeveelheid / Dichtheid van Golven (Aantal rimpels)**
+* **Aantal rimpels bij $120\text{ mm}$ lengte:**
+  * **Fijne corrugatie (1.0 mm steek):** $\approx 100 - 120$ golven. Dit verdeelt de mechanische spanningen uiterst gelijkmatig over de hele lengte en voorkomt staande mechanische golven op het lint.
+  * **Minder dan 30 golven:** De mechanische belasting concentreert zich op de uiteinden, waardoor het lint snel op die specifieke punten metaalmoeheid vertoont en breekt.
+
+---
+
+## 4. Klemmen, Isolatie, Elektrische Aansluiting & TPU-Demping
+
+### 4.1 Gebruik van Kapton Tape (10 mm / 11 mm breed)
+Kapton (Polyimide) tape is hittebestendig, extreem dun en heeft uitstekende dielektrische isolatie-eigenschappen:
+1. **Isolatie van de Magneetpooloppervlakken:** Plak stroken Kapton tape over de binnenste magneetwanden in de $12\text{ mm}$ spleet. Dit voorkomt dat het aluminiumfolie elektrische kortsluiting maakt als het bij extreem hoge SPL zijdelings tegen de magneten tikt.
+2. **Thermische & Mechanische Bescherming bij Klemmen:** Gebruik Kapton tape onder en boven het koperen contactvlak om het PETG/ABS frame te beschermen tegen hitte bij het solderen.
+
+### 4.2 Koperen Tape / Folie voor Elektrisch Contact & Solderen
+1. **Contactblokken:** Plak zelfklevend koperfolie/kopertape op de bevestigingsvlakken (boven, onder en midden).
+2. **Klemverbinding:** Klem het aluminium lint met TPU/PETG klemstrip stevig op het koper.
+3. **Solderen:** Soldeer de secundaire getwiste koperdraden van de transformator rechtstreeks op de koperen tape. *Soldeer nooit rechtstreeks op het aluminium lint!*
+
 * **TPU Flexibele Demping:** 3D-geprinte TPU-pakkingen aan de uiteinden (en bij de optionele middenklem) absorberen reflectiegolven en voorkomen dat het aluminium inscheurt.
 
 ---
