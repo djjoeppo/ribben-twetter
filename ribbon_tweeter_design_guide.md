@@ -73,7 +73,29 @@ Wanneer je 1 lang lint van 12-13 cm gebruikt en dit in het midden ondersteunt/va
 
 ---
 
-## 4. Master Matrix: Integraal Berekeningsmodel & Optimale Verhoudingen
+## 4. Waveguide / Hoorn Ontwerp: Gebogen (Exponentiële) Wanden vs. Rechte Wanden & Montage
+
+### 4.1 Exponentieel Gebogen Wanden vs. Rechte Wanden
+* **Rechte / Conische Wanden:**
+  * Veroorzaken interne diffractie-reflecties op het punt waar de keel overgaat in de hoorn.
+  * Geven grillige rimpels in de frequentierespons tussen 5 kHz en 15 kHz.
+* **Exponentieel Gebogen Wanden (Exponential Curve) [GEBRUIKT IN ONTWERP]:**
+  * Volgen de akoestische expansieformule: $w(z) = w_{throat} \cdot e^{\alpha z}$.
+  * Zorgen voor een vloeiende impedantie-aanpassing van de lucht bij het lint naar de vrije buitenlucht.
+  * **Resultaat:** Maximale akoestische drukversterking (+3 tot +5 dB SPL), kaarsrechte frequentierespons en nagenoeg nul kleuring/diffractie.
+
+### 4.2 Montage van de Waveguide op het Tweeter-Frame & 3D-Printbaarheid
+1. **Montage met Keelflens (Throat Flange):**
+   * De waveguide is voorzien van een **keelflens met 6x M3 boutgaten**.
+   * Deze flens wordt met M3 bouten en M3 hitte-insmeltmoeren (heat-set inserts) of moeruitsparingen rechtstreeks luchtdicht op de voorzijde van het PETG-CF/ABS tweeter-frame geschroefd.
+   * **Afdichting:** Tussen het tweeter-frame en de keelflens van de waveguide komt een $1\text{ mm}$ TPU 3D-geprinte pakking (of dunne schuimrubber strip) om valse luchtlekkage te voorkomen.
+2. **100% Support-Free 3D-Printbaar:**
+   * **Print-oriëntatie:** Print de waveguide **ondersteboven (throat-down)** vlak op het printbed.
+   * De exponentiële wanden verlopen onder een hoek van $\le 45^\circ$, waardoor de hoorn **volledig zonder support-materiaal** strak geprint kan worden in PETG-CF, ABS of PLA!
+
+---
+
+## 5. Master Matrix: Integraal Berekeningsmodel & Optimale Verhoudingen
 
 | Parameter / Onderdeel | Berekende Optimale Waarde | Fysische / Akoestische Onderbouwing & Ratio |
 | :--- | :--- | :--- |
