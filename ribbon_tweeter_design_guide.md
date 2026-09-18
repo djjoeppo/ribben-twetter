@@ -25,14 +25,28 @@ Dit document bevat het complete ontwerp, de fysische berekeningen, de materiaalk
 ### 2.1 Bepaling Magneetoriëntatie
 De $60 \times 10 \times 5\text{ mm}$ N52 magneten zijn in de lengterichting ($60\text{ mm}$) gemagnetiseerd of door de dikte ($5\text{ mm}$ / $10\text{ mm}$).
 * **Magnetisatie door de dikte ($5\text{ mm}$ of $10\text{ mm}$):** De N- en S-polen bevinden zich op de grote platte zijden van $60 \times 10\text{ mm}$ of $60 \times 5\text{ mm}$. Dit is de ideale configuratie voor een lint-tweeter motor!
-* **Plaatsing (Push-Pull vs. Dual-Gap Parallel):**
-  * Om het magnetisch veld ($B$) in de spleet maximaal te concentreren, plaatsen we aan weerszijden van het lint 2 magneten (totaal 4 magneten):
-    * **Links van het lint:** 2 magneten op elkaar gestapeld ($60 \times 10 \times 10\text{ mm}$ totaal) met Noordpool richting de spleet.
-    * **Rechts van het lint:** 2 magneten op elkaar gestapeld met Zuidpool richting de spleet.
-  * **Spleetbreedte ($W_{gap}$):** $12\text{ mm}$ (geschikt voor een lintbreedte van $10\text{ mm}$ met $1\text{ mm}$ luchtmarge aan beide zijden).
-  * **Spleetdiepte ($D_{gap}$):** $10\text{ mm}$.
+* **Spleetbreedte ($W_{gap}$):** $12\text{ mm}$ (geschikt voor een lintbreedte van $10\text{ mm}$ met $1\text{ mm}$ luchtmarge aan beide zijden).
+* **Spleetdiepte ($D_{gap}$):** $10\text{ mm}$.
 
-### 2.2 Proof of Concept (3D-Print) vs. Stalen Yoke Upgrade
+---
+
+### 2.2 Vergelijking Magneet-Configuraties (Met 4x N52 Magneten)
+
+Je kunt de 4 beschikbare N52 magneten op drie verschillende manieren rangschikken. Hier is de exacte vergelijking van de voor- en nadelen:
+
+| Configuraties (met 4x N52 $60\times10\times5\text{mm}$) | Relatieve Veldsterkte ($B$) | Trillende Lengte ($L_{eff}$) | SPL Efficiëntie | Voor- en Nadelen |
+| :--- | :--- | :--- | :--- | :--- |
+| **A. 1 Magneet links, 1 rechts** *(slechts 2 magneten gebruikt)* | $\approx 0.25 - 0.35\text{ Tesla}$ (Laag) | $55\text{ mm} - 60\text{ mm}$ | Basisniveau (0 dB ref) | **Voordeel:** Eenvoudige montage.<br>**Nadeel:** Lage veldsterkte in $12\text{mm}$ spleet; lagere SPL en minder controle/demping op het lint. |
+| **B. 2 Magneten op elkaar gestapeld links & 2 rechts (Verdubbeling Diepte)** | $\approx 0.45 - 0.60\text{ Tesla}$ (Hoog) | $55\text{ mm} - 60\text{ mm}$ | **+3.5 dB tot +4.5 dB winst** t.o.v. Config A | **Voordeel:** Maximale veldsterkte $B$ per millimeter lint; erg zuiver geluid, hoge elektrische belastbaarheid en strakke controle op trillingen.<br>**Nadeel:** Lintlengte blijft 60 mm. |
+| **C. 2 Magneten achter elkaar in de lengte links & 2 rechts (Lengte = $120\text{ mm}$)** | $\approx 0.25 - 0.35\text{ Tesla}$ (Middel) | **$115\text{ mm} - 120\text{ mm}$** (2x groter membraan) | **+3 dB winst bij lage frequenties (3-4 kHz)** t.o.v. Config A | **Voordeel:** 2x groter luchtverplaatsend oppervlak (11.5 cm²); extreem smalle verticale afstraling (perfect voor Line Array high throw).<br>**Nadeel:** Veldsterkte $B$ per mm blijft gelijk aan Config A; langer lint rekt sneller uit. |
+
+#### **Conclusie & Advies voor PA Line Array:**
+* **Kies Configuratie B (2 op elkaar gestapeld)** als je **maximale controle, minimale vervorming en hoogste SPL per mm** wilt.
+* **Kies Configuratie C (2 achter elkaar in de lengte, 120 mm)** als je een **groter Line Array oppervlak** wilt met een **zeer strakke verticale bundeling (high throw)** en betere weergave rarr 3.5 kHz.
+
+---
+
+### 2.3 Proof of Concept (3D-Print) vs. Stalen Yoke Upgrade
 1. **3D-Geprinte Behuizing (PETG-CF / ABS) [Proof of Concept]:**
    * Veldsterkte in de spleet zonder stalen geleiding: $\approx 0.35 - 0.45\text{ Tesla}$.
    * Werkt prima om de werking te testen, maar veel magnetische flux lekt weg aan de achterkant en zijkanten.
@@ -45,11 +59,11 @@ De $60 \times 10 \times 5\text{ mm}$ N52 magneten zijn in de lengterichting ($60
 ## 3. Lint-Ontwerp (Folie, Afmetingen & Corrugatie)
 
 ### 3.1 Lintafmetingen
-* **Totale lengte ($L_{total}$):** $70\text{ mm}$.
-* **Effectieve (trillende) lengte ($L_{eff}$):** $55\text{ mm}$ - $60\text{ mm}$ (afgedekt door de 60 mm magneten).
+* **Totale lengte ($L_{total}$):** $70\text{ mm}$ (bij Config B) of $130\text{ mm}$ (bij Config C).
+* **Effectieve (trillende) lengte ($L_{eff}$):** $55\text{ mm} - 60\text{ mm}$ (Config B) of $115\text{ mm} - 120\text{ mm}$ (Config C).
 * **Breedte ($W$):** $10\text{ mm}$.
 * **Dikte ($T$):** $12\ \mu\text{m} = 0.012\text{ mm}$ (Standaard huishoudaluminiumfolie).
-* **Massa van het trillende lint ($m$):**
+* **Massa van het trillende lint ($m$ bij 60mm):**
   $$\text{Volume} = 0.055\text{ m} \times 0.010\text{ m} \times 0.000012\text{ m} = 6.6 \times 10^{-9}\text{ m}^3$$
   $$\text{Dichtheid Aluminium } (\rho) = 2700\text{ kg/m}^3$$
   $$\text{Massa } m = 2700 \times 6.6 \times 10^{-9} \approx 0.0178\text{ gram} \ (17.8\text{ mg})$$
@@ -130,8 +144,8 @@ Als je de $3.7\ \mu\text{F}$ condensator wilt gebruiken om bij **$4.0\text{ kHz}
 1. **Print de Behuizing:** Print het hoofdframe met de magnetische sleuven, de TPU dempers en de waveguide.
 2. **Plaats de Magneten:** Druk de 4x N52 magneten in de uitsparingen (Let op de polariteit: Attractie/Repulsie goed controleren!).
 3. **Optioneel - Stalen Yoke:** Monteer de stalen strip achter de magneten voor maximale SPL.
-4. **Prepareer het Lint:** Snijd een strook van $70\text{ mm} \times 10\text{ mm}$ uit huishoudfolie. Haal door de corrugator voor fijne plooien.
-5. **Aansluiting:** Plak koperen tape op de TPU-klemmen. Solder de draden van de trafo-secundaire zijde aan de koperen tape.
+4. **Prepareer het Lint:** Snijd een strook van $70\text{ mm} \times 10\text{ mm}$ (of $130\text{ mm} \times 10\text{ mm}$) uit huishoudfolie. Haal door de corrugator voor fijne plooien.
+5. **Aansluiting:** Plak koperen tape op de TPU-klemmen. Soldeer de draden van de trafo-secundaire zijde aan de koperen tape.
 6. **Lint Opspannen:** Leg het lint voorzichtig op de koperen tape in het centrum van de magneetspleet. Zorg dat het lint NERGENS de magneten raakt.
 7. **Bovenklem Vastschroeven:** Schroef de TPU/PETG topklemmen vast met M3 schroeven.
 8. **Condensator Aansluiten:** Plaats de $3.7\ \mu\text{F}$ condensator in serie met de + klem op de primaire zijde van de trafo.
