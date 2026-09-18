@@ -144,9 +144,36 @@ $$f_c = \frac{1}{2 \pi \times Z_p \times C}$$
 
 ---
 
-## 7. 3D-Print & Assemblage Instructies
+## 7. Master Matrix: Integraal Berekeningsmodel & Optimale Verhoudingen
+
+In deze tabel zijn alle natuurkundige, akoestische en mechanische parameters integraal doorgerekend op basis van de materiaaleigenschappen van N52 Neodymium, aluminium, air gap reluctantie, en de wettekst van Newton ($a = F/m$) & Lorentz ($F = B \cdot I \cdot L$).
+
+### 7.1 Totaaloverzicht van Optimale Verhoudingen (Master Blueprint)
+
+| Parameter / Onderdeel | Berekende Optimale Waarde | Fysische / Akoestische Onderbouwing & Ratio |
+| :--- | :--- | :--- |
+| **Magneetconfiguratie** | 2 stuks gestapeld per pool ($10\text{ mm}$ dikte per pool, $60\text{ mm}$ lengte) | Verdubbelt de magnetische veldsterkte $B$ in de spleet van $\approx 0.35\text{ T}$ naar **$\approx 0.65 - 0.70\text{ T}$** (+6 dB SPL winst). |
+| **Luchtspleet Breedte ($W_{gap}$)** | **$12.0\text{ mm}$** | Biedt $1.0\text{ mm}$ spleetmarge aan weerszijden van een $10.0\text{ mm}$ lint. Minimale spleetweerstand (reluctantie) met maximale $B$-veldsterkte. |
+| **Luchtspleet Diepte ($D_{gap}$)** | **$10.0\text{ mm}$** | Gelijk aan de diepte van de 2 gestapelde $5\text{ mm}$ N52 magneten ($5 + 5 = 10\text{ mm}$). |
+| **Lint Breedte ($W_{ribbon}$)** | **$10.0\text{ mm}$** | Bepaalt het stralend oppervlak. Een ratio van $10\text{ mm}$ breedte op $12\text{ mm}$ spleet geeft optimale $B \times L$ kracht zonder dat het lint de magneetwanden raakt. |
+| **Lint Lengte ($L_{active}$)** | **$120.0\text{ mm}$ (2x $60\text{ mm}$ segmenten)** | $120\text{ mm}$ actieve stralingslengte vormt een perfecte cylindrische golf voor Line Array outdoor throw. Middenklem bij $60\text{ mm}$ voorkomt doorhangen. |
+| **Lint Foliedikte ($t_{ribbon}$)** | **$10\ \mu\text{m} = 0.010\text{ mm}$** (Keukenfolie) | Totale massa active area = **$32.4\text{ mg}$**. Geeft maximale versnelling $a = F/m$ en efficiëntie tot boven $25\text{ kHz}$. |
+| **Versteviging (Kapton Tape)** | **Alleen op klemeinden ($10\text{ mm}$)** | Voorkomt scheuren op klem- en soldeerpunten. Hou het trillende middengedeelte $100\%$ zuiver aluminium. |
+| **Corrugatie Vorm** | **Afgeronde V-vorm / Chevron** | Tophoek van V = **$90^\circ - 120^\circ$** ($30^\circ - 45^\circ$ schuin). Voorkomt torderen/zijdelings uitbuigen. |
+| **Corrugatie Rimpelprofiel** | **Sinusvormig (Afgerond)** | Straal van tanden $\approx 0.3 - 0.5\text{ mm}$. Voorkomt spanningsconcentratie, metaalmoeheid en inscheuren. |
+| **Corrugatie Diepte (Amplitude)** | **$0.5\text{ mm} - 0.7\text{ mm}$** | Biedt voldoende mechanische excursie voor hoge SPL op $4\text{ kHz}$ zonder overtollige folielengte/massa. |
+| **Corrugatie Dichtheid** | **1.0 mm steek ($\approx 120$ rimpels)** | Gelijkmatige spanningsverdeling over de gehele lengte van $120\text{ mm}$. |
+| **Lint Gelijkstroomweerstand ($R_{dc}$)** | **$\approx 0.037\ \Omega$** ($120\text{ mm} \times 10\text{ mm} \times 0.01\text{ mm}$) | Zeer lage interne weerstand $\rightarrow$ vereist impedantietransformator voor versterkeraanpassing. |
+| **Transformator Wikkelverhouding** | **$24 : 1$** (Primair $N_p = 48$, Secundair $N_s = 2$) | Zet $0.037\ \Omega$ om naar $Z_p \approx 10.75\ \Omega$, exact afgestemd op de $3.7\ \mu\text{F}$ condensator voor $f_c = 4.0\text{ kHz}$. |
+| **Waveguide Hoorn** | **$90^\circ$ Horizontaal $\times 10^\circ$ Verticaal** | +3 dB tot +5 dB akoestische drukversterking en bundeling voor buitenweergave. |
+
+---
+
+## 8. 3D-Print & Assemblage Instructies
 
 1. **Print de Behuizing:** Gebruik **PETG-CF** of **ABS** voor het stijve frame en **TPU** voor de dempingsklemmen.
-2. **Plaats Magneten:** Druk de 4x N52 magneten in de uitsparingen.
-3. **Corrugeer het Lint:** Gebruik de 3D-geprinte tandwiel-corrugator op het **$0.01\text{ mm}$ huishoudfolie**.
-4. **Assemblage:** Klem het lint vast op de koperen tape en TPU klemmen.
+2. **Plaats Magneten:** Druk de 4x N52 magneten in de uitsparingen (stapel 2 magneten per zijde voor $10\text{ mm}$ dikte).
+3. **Isoleer Magneten:** Plak Kapton tape op de binnenste magneetwanden in de $12\text{ mm}$ spleet.
+4. **Corrugeer het Lint:** Gebruik de 3D-geprinte V-tandwiel-corrugator op het **$0.01\text{ mm}$ huishoudfolie** met afgeronde sinus-tanden.
+5. **Verstevig Klemeinden:** Plak strookjes Kapton tape van $10\text{ mm}$ op de uiterste uiteinden en bij het middenklempunt.
+6. **Assemblage:** Klem het lint vast op de koperen tape-pads en TPU klemmen. Soldeer de secundaire trafodraden op de koperen tape.
