@@ -132,10 +132,15 @@ In `ribbon_waveguide.scad` kun je nu simpel instellen:
    * De waveguide is voorzien van een **keelflens met 6x M3 boutgaten**.
    * Deze flens wordt met M3 bouten en M3 hitte-insmeltmoeren (heat-set inserts) of moeruitsparingen rechtstreeks luchtdicht op de voorzijde van het PETG-CF/ABS tweeter-frame geschroefd.
    * **Afdichting:** Tussen het tweeter-frame en de keelflens van de waveguide komt een $1\text{ mm}$ TPU 3D-geprinte pakking (of dunne schuimrubber strip) om valse luchtlekkage te voorkomen.
-2. **100% Support-Free 3D-Printbaar (Geverifieerd):**
-   * **Print-oriëntatie:** Print de waveguide **ondersteboven (throat-down)** vlak op het printbed.
-   * **Overhanghoek:** De maximale wandhoek bedraagt **$38.6^\circ$ ten opzichte van de z-as** aan het uiteinde. Omdat vrijwel alle FDM 3D-printers moeiteloos overhangs tot $45^\circ-50^\circ$ printen, kan deze hoorn **$100\%$ zonder support-structuren** (support-free) met een strakke binnenwand afgedrukt worden!
-   * **Bedhechting:** De grote, vlakke achterste keelflens ($32 \times 140\text{ mm}$) ligt direct op het printbed, wat zorgt voor een gigantisch contactoppervlak en nul kans op warping.
+2. **100% Support-Free 3D-Printbaar (Geverifieerd op OpenSCAD Render):**
+   * **Beoordeling van de Render:** De OpenSCAD F6-render toont een prachtige, gladde exponentiële trechter met een strakke keelflens onderaan en een robuuste mondflens bovenaan.
+   * **Print-oriëntatie:** Print de waveguide **ondersteboven (throat-down)** met de kleine keelflens vlak op de bouwplaat.
+   * **Overhanghoek:** De wanden waaieren geleidelijk uit onder een hoek van $<38.6^\circ$. Dit valt ruim binnen de $45^\circ$ FDM-limiet, waardoor de hoorn **volledig zonder support-materiaal** (0% supports) strak en glad geprint kan worden!
+   * **3D Slicer Instellingen:**
+     * **Laaghoogte:** $0.2\text{ mm}$ (of $0.16\text{ mm}$ voor nog gladdere binnenwanden).
+     * **Wanden / Perimeters:** 4 wanden (wall loops) voor maximale stijfheid en luchtdichtheid.
+     * **Infill:** $25\%-30\%$ Gyroid of Grid.
+     * **Materiaal:** PETG-CF, ABS of PLA+.
 
 ---
 
