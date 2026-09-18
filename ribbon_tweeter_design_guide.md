@@ -75,14 +75,24 @@ Wanneer je 1 lang lint van 12-13 cm gebruikt en dit in het midden ondersteunt/va
 
 ## 4. Waveguide / Hoorn Ontwerp: Gebogen (Exponentiële) Wanden vs. Rechte Wanden & Montage
 
-### 4.1 Exponentieel Gebogen Wanden vs. Rechte Wanden
-* **Rechte / Conische Wanden:**
-  * Veroorzaken interne diffractie-reflecties op het punt waar de keel overgaat in de hoorn.
-  * Geven grillige rimpels in de frequentierespons tussen 5 kHz en 15 kHz.
-* **Exponentieel Gebogen Wanden (Exponential Curve) [GEBRUIKT IN ONTWERP]:**
-  * Volgen de akoestische expansieformule: $w(z) = w_{throat} \cdot e^{\alpha z}$.
-  * Zorgen voor een vloeiende impedantie-aanpassing van de lucht bij het lint naar de vrije buitenlucht.
-  * **Resultaat:** Maximale akoestische drukversterking (+3 tot +5 dB SPL), kaarsrechte frequentierespons en nagenoeg nul kleuring/diffractie.
+### 4.1 Geometrisch Verschil: Exponentieel Gebogen vs. Recht (Waarom de hoorn slanker lijkt)
+
+Genoemde perceptie dat de uitlaat slanker lijkt, komt door het **fysische verschil tussen een exponentiële expansie en een rechte (conische) lijn**:
+
+* **Rechte (Conische) Wanden ($45^\circ$ rechte hoek):**
+  * Verbreedt direct vanaf de keel bij $z=0$ met een constante hoek.
+  * *Middengedeelte ($z = 20\text{ mm}$):* Breedte is al $52\text{ mm}$.
+  * *Eindmond ($z = 40\text{ mm}$):* Breedte is $92\text{ mm}$.
+* **Exponentieel Gebogen Wanden ($w(z) = w_{throat} \cdot e^{\alpha z}$):**
+  * Expandeert nabij de keel heel geleidelijk (om de akoestische drukgolf bij het lint optimaal te belasten) en buigt pas aan het uiteinde snel naar buiten toe.
+  * *Middengedeelte ($z = 20\text{ mm}$):* Breedte is slechts $\approx 33\text{ mm}$ (slanker in de taille!).
+  * *Eindmond ($z = 40\text{ mm}$):* Breedte is **exact hetzelfde ($92\text{ mm}$)** als de rechte versie!
+
+**Keuze in OpenSCAD (`flare_type` parameter):**
+In `ribbon_waveguide.scad` kun je nu simpel instellen:
+* `flare_type = "exponential";` (Aanbevolen: Hoogste efficiëntie & minst kleuring).
+* `flare_type = "conical";` (Rechte $45^\circ$ wanden).
+* `horn_depth = 50.0;` (Diepere hoorn voor nog bredere expansie).
 
 ### 4.2 Montage van de Waveguide op het Tweeter-Frame & 3D-Printbaarheid
 1. **Montage met Keelflens (Throat Flange):**
