@@ -13,7 +13,7 @@ Dit document bevat het complete ontwerp, de fysische berekeningen, de materiaalk
 * **Materialen in huis:**
   * 3D-printers (PETG-CF, ABS, PLA, TPU).
   * 4x N52 Neodymium magneten ($60 \times 10 \times 5\text{ mm}$).
-  * Huishoudaluminiumfolie (dikte ca. $10\ \mu\text{m} - 15\ \mu\text{m}$).
+  * Huishoudaluminiumfolie ($10\ \mu\text{m} = 0.01\text{ mm}$) en dikkere folie ($0.1\text{ mm}$).
   * Koperen tape & koperdraad.
   * $3.7\ \mu\text{F}$ Audio condensator.
   * M3/M4 schroeven en moeren.
@@ -29,63 +29,39 @@ De $60 \times 10 \times 5\text{ mm}$ N52 magneten zijn gemagnetiseerd door de di
 
 ---
 
-### 2.2 Vergelijking Magneet-Configuraties (Met 4x N52 Magneten)
+## 3. Analyse van Lint-Parameters
 
-| Configuraties (met 4x N52 $60\times10\times5\text{mm}$) | Relatieve Veldsterkte ($B$) | Trillende Lengte ($L_{eff}$) | SPL Efficiëntie | Voor- en Nadelen |
-| :--- | :--- | :--- | :--- | :--- |
-| **A. 1 Magneet links, 1 rechts** | $\approx 0.25 - 0.35\text{ T}$ | $55 - 60\text{ mm}$ | 0 dB ref | Eenvoudig, maar lagere veldsterkte en minder controle. |
-| **B. 2 Gestapeld op elkaar links & rechts** | $\approx 0.45 - 0.60\text{ T}$ | $55 - 60\text{ mm}$ | **+3.5 dB tot +4.5 dB** | **Maximale veldsterkte $B$ per mm**, extreem zuiver, hoge belastbaarheid. |
-| **C. 2 Achter elkaar in de lengte (120 mm)** | $\approx 0.25 - 0.35\text{ T}$ | $115 - 120\text{ mm}$ | **+3 dB bij 3-4 kHz** | 2x groter oppervlak, hele strakke verticale bundeling (Line Array outdoor throw). |
-| **C-Middenklem (1 Lint van 12 cm met Middenklem)** | $\approx 0.25 - 0.35\text{ T}$ | $2\times 55\text{ mm}$ | **+3.5 dB** | **Combineert lange Line Array afstraling met de stabiliteit van een kort lint!** |
+### 3.1 Foliedikte Vergelijking: Huishoudfolie ($0.01\text{ mm}$) vs. Dikke Folie ($0.1\text{ mm}$)
+
+| Eigenschap | Huishoudfolie ($0.01\text{ mm} / 10\ \mu\text{m}$) | Dikke Folie ($0.1\text{ mm} / 100\ \mu\text{m}$) |
+| :--- | :--- | :--- |
+| **Massa ($60\text{ mm} \times 10\text{ mm}$)** | **$16.2\text{ mg}$ (Extreem licht!)** | **$162\text{ mg}$ (10x zwaarder!)** |
+| **Gelijkstroomweerstand ($R_{dc}$)** | $\approx 0.0185\ \Omega$ | $\approx 0.00185\ \Omega$ (Extreem laag) |
+| **Transiëntrespons & Hoogweergave (> 10 kHz)** | **Uitstekend:** Reageert direct op bliksemsnelle HF-signalen. | **Slecht:** Hoge massa werkt als mechanisch laagdoorlaatfilter (dempt hoog af boven 8-10 kHz). |
+| **Rendement / Efficiëntie (SPL)** | **Zeer Hoog (+10 dB tot +15 dB efficiënter per Watt)** | **Zeer Laag:** Versnelling $a = F/m$ is 10x kleiner bij dezelfde Lorentzkracht $F$. |
+| **Mechanische Stevigheid / Belastbaarheid** | Kwetsbaar bij montage, maar thermisch zeer goed gekoeld door luchtstroom. | Mechanisch oersterk en kan enorm veel stroom verdragen. |
+
+#### **Fysische Verklaring (Waarom $0.01\text{ mm}$ de Enige Goede Keuze is voor High SPL):**
+De kracht die het lint in beweging brengt is de Lorentzkracht: $F = B \times I \times L$.
+De versnelling van het lint (en dus de geluidsdruk/SPL die gegenereerd wordt) volgt de wet van Newton:
+
+$$a = \frac{F}{m}$$
+
+Als je $0.1\text{ mm}$ folie gebruikt, wordt de massa $m$ **10 keer zo groot**. Dit betekent dat bij dezelfde versterkerstroom de versnelling $a$ **10 keer kleiner** is! Je verliest hiermee ruim **10 tot 20 dB aan gevoeligheid/SPL**.
+
+* **Conclusie:** Gebruik **altijd de dunne $0.01\text{ mm}$ (10 micron) huishoudfolie** voor de ribbon tweeter! Het dikke $0.1\text{ mm}$ folie is absoluut ongeschikt voor frequenties boven 3 kHz.
 
 ---
 
-## 3. Analyse van Lint-Parameters (Lengte, Breedte & Corrugatie)
-
-### 3.1 Middenklem bij een Lang Lint (12-13 cm) [Optie C-Middenklem]
+### 3.2 Middenklem bij een Lang Lint (12-13 cm) [Optie C-Middenklem]
 Wanneer je 1 lang lint van 12-13 cm gebruikt en dit in het midden ondersteunt/vastklemt (dual segment):
-* **Voordelen:**
-  1. **Geen doorhangen/wapperen:** Het lint gedraagt zich mechanisch als twee kortere stijve segmenten van 6 cm, waardoor het niet gaat zwabberen of tegen de magneten tikt.
-  2. **Betere resonantiecontrole:** De grondresonantie verschuift naar een hogere frequentie die buiten/onder de crossover valt.
-  3. **Behoud van Line Array effect:** De twee segmenten stralen samen in fase af en vormen alsnog één lange verticale geluidsbron (cylindrische golf).
-* **Nadelen:**
-  1. Je verliest een klein stukje effectief trillend oppervlak bij het klemblokje in het midden ($\approx 5\text{ mm}$).
-  2. Iets complexere montage en TPU-demping in het midden.
+* **Voordelen:** Geen doorhangen/wapperen, betere resonantiecontrole en behoud van Line Array 'high throw'.
 
 ---
 
-### 3.2 Breed vs. Smal Lint
-* **Breed Lint ($12\text{ mm} - 15\text{ mm}$):**
-  * *Voordelen:* Groter oppervlak $\rightarrow$ meer luchtverplaatsing $\rightarrow$ hogere SPL bij lage frequenties (2.5 - 4 kHz). Lagere elektrische weerstand.
-  * *Nadelen:* Brede magneetspleet nodig ($15-18\text{ mm}$), waardoor de veldsterkte $B$ sterk afneemt! Bredere horizontale afstraling vervormt sneller boven 10 kHz (bundeling).
-* **Smal Lint ($6\text{ mm} - 10\text{ mm}$) [AANBEVOLEN: 10 mm]:**
-  * *Voordelen:* Nauwe magneetspleet mogelijk ($12\text{ mm}$) $\rightarrow$ **zeer hoge veldsterkte $B$** $\rightarrow$ hogere efficiëntie en zuiverder geluid. Uitstekende brede horizontale spreiding tot 20 kHz.
-  * *Nadelen:* Kleiner oppervlak, iets minder uitslag bij hele lage frequenties (< 3 kHz).
-
----
-
-### 3.3 Lang vs. Kort Lint
-* **Lang Lint ($120\text{ mm} - 150\text{ mm}$):**
-  * *Voordelen:* Uitstekende verticale richtwerking (Line Array effect), draagt heel ver outdoor (high throw). Hoge akoestische belasting (radiation impedance).
-  * *Nadelen:* Gevoeliger voor torderen en hitte; vereist middenklem of fijne corrugatie.
-* **Kort Lint ($50\text{ mm} - 70\text{ mm}$):**
-  * *Voordelen:* Mechanisch zeer stabiel, extreem lage massa, simpel te monteren.
-  * *Nadelen:* Brede verticale rondstraling (minder geschikt voor Line Array op grote afstand).
-
----
-
-### 3.4 Vlak Lint vs. Gecorrugeerd Lint (Plooien)
-* **Vlak (Plat) Lint:**
-  * *Nadelen:* **NIET GESCHIKT voor PA/High SPL.** Een platte aluminiumfolie heeft geen mechanische compliance. Bij het trillen rekt het folie op, ontstaat er 'flutter'/wapperen en scheurt het binnen korte tijd in op de klemranden.
-* **Gecorrugeerd Lint:**
-  * *Voordelen:* Noodzakelijk voor lineaire beweging, voorkomt vervorming en vangt thermische uitzetting op.
-
-#### Soorten Corrugatie Vergelijking:
-| Corrugatie Type | Pitch | Diepte | Karakteristiek & Resultaat |
-| :--- | :--- | :--- | :--- |
-| **Fijne Sinus/Zaagtand (AANBEVOLEN)** | $0.8 - 1.2\text{ mm}$ | $0.3 - 0.5\text{ mm}$ | Hoge stijfheid over de breedte, neutrale en zuivere weergave van 3.5 kHz tot 25 kHz. Geen opbreekresonanties. |
-| **Grove Corrugatie** | $2.5 - 4.0\text{ mm}$ | $1.0 - 1.5\text{ mm}$ | Staat grote mechanische uitslag toe voor lage frequenties (< 2 kHz), maar vervormt (tordeert) sneller boven 10 kHz. |
-| **Diagonale / Wafel Corrugatie** | $1.5\text{ mm}$ | $0.4\text{ mm}$ | Extreem stijf in alle richtingen, maar verhoogt de massa en weerstand het meest. |
+### 3.3 Breed vs. Smal Lint & Lang vs. Kort Lint
+* **Breedte:** $10\text{ mm}$ is de optimale balans tussen spleetbreedte/veldsterkte $B$ en oppervlak.
+* **Lengte:** $120\text{ mm}$ met middenklem geeft een uitstekende Line Array afstraling.
 
 ---
 
@@ -119,5 +95,5 @@ $$f_c = \frac{1}{2 \pi \times Z_p \times C}$$
 
 1. **Print de Behuizing:** Gebruik **PETG-CF** of **ABS** voor het stijve frame en **TPU** voor de dempingsklemmen.
 2. **Plaats Magneten:** Druk de 4x N52 magneten in de uitsparingen.
-3. **Corrugeer het Lint:** Gebruik de 3D-geprinte tandwiel-corrugator voor fijne plooien.
+3. **Corrugeer het Lint:** Gebruik de 3D-geprinte tandwiel-corrugator op het **$0.01\text{ mm}$ huishoudfolie**.
 4. **Assemblage:** Klem het lint vast op de koperen tape en TPU klemmen.
