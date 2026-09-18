@@ -31,15 +31,22 @@ De $60 \times 10 \times 5\text{ mm}$ N52 magneten zijn gemagnetiseerd door de di
 
 ## 3. Analyse van Lint-Parameters
 
-### 3.1 Foliedikte Vergelijking: Huishoudfolie ($0.01\text{ mm}$) vs. Dikke Folie ($0.1\text{ mm}$)
+### 3.1 Foliedikte & Kapton Backing Vergelijking
 
-| Eigenschap | Huishoudfolie ($0.01\text{ mm} / 10\ \mu\text{m}$) | Dikke Folie ($0.1\text{ mm} / 100\ \mu\text{m}$) |
-| :--- | :--- | :--- |
-| **Massa ($60\text{ mm} \times 10\text{ mm}$)** | **$16.2\text{ mg}$ (Extreem licht!)** | **$162\text{ mg}$ (10x zwaarder!)** |
-| **Gelijkstroomweerstand ($R_{dc}$)** | $\approx 0.0185\ \Omega$ | $\approx 0.00185\ \Omega$ (Extreem laag) |
-| **Transiëntrespons & Hoogweergave (> 10 kHz)** | **Uitstekend:** Reageert direct op bliksemsnelle HF-signalen. | **Slecht:** Hoge massa werkt als mechanisch laagdoorlaatfilter (dempt hoog af boven 8-10 kHz). |
-| **Rendement / Efficiëntie (SPL)** | **Zeer Hoog (+10 dB tot +15 dB efficiënter per Watt)** | **Zeer Laag:** Versnelling $a = F/m$ is 10x kleiner bij dezelfde Lorentzkracht $F$. |
-| **Mechanische Stevigheid / Belastbaarheid** | Kwetsbaar bij montage, maar thermisch zeer goed gekoeld door luchtstroom. | Mechanisch oersterk en kan enorm veel stroom verdragen. |
+#### **A. Kapton Tape Plakken Onder het Aluminium (Backing / Laminaat)**
+* **Volledige Kapton Backing over de hele lengte (Niet Aanbevolen voor Pure Ribbon):**
+  * *Massa-explosie:* Kapton tape is $25 - 50\ \mu\text{m}$ dik en heeft een dichtheid van $1.42\text{ g/cm}^3$. Een laag Kapton toevoegen onder $10\ \mu\text{m}$ aluminium maakt het lint **4 tot 6 keer zwaarder**!
+  * *Impact op SPL & HF:* Door $a = F/m$ daalt de gevoeligheid boven 5 kHz met **8 tot 12 dB**. Het geluid wordt dof en verliest de karakteristieke "openheid" van een ribbon.
+  * *Wanneer WEL gebruiken:* **Alleen op de klem-uiteinden (eerste 5-10 mm)** als versteviging tegen inscheuren op het klem- en soldeerpunt.
+
+#### **B. Foliedikte Vergelijking: Ultra-dun ($6-8\ \mu\text{m}$), Huishoudfolie ($10\ \mu\text{m}$) vs. Dikke Folie ($20-100\ \mu\text{m}$)**
+
+| Eigenschap | Ultra-dun ($6 - 8\ \mu\text{m}$) | Huishoudfolie ($10\ \mu\text{m} / 0.01\text{ mm}$) | Dikke Folie ($20 - 100\ \mu\text{m}$) |
+| :--- | :--- | :--- | :--- |
+| **Massa ($60\text{ mm} \times 10\text{ mm}$)** | $\approx 10-13\text{ mg}$ | **$16.2\text{ mg}$ (Ideaal)** | $32 - 162\text{ mg}$ (2x - 10x zwaarder) |
+| **Transiëntrespons & HF (>10 kHz)** | Extreem snel, ultieme weergave. | **Uitstekend:** Haalt gemakkelijk 20-30 kHz. | Slecht: Hoge massa werkt als mechanisch laagdoorlaatfilter. |
+| **Rendement (SPL)** | Zeer hoog (+1 tot +2 dB extra) | **Optimaal voor PA High-SPL** | Laag (-6 tot -20 dB verlies per Watt). |
+| **Hanteerbaarheid** | Extreem kwetsbaar, scheurt erg snel. | **Goed hanteerbaar met voorzichtigheid.** | Oersterk, maar akoestisch ongeschikt. |
 
 #### **Fysische Verklaring (Waarom $0.01\text{ mm}$ de Enige Goede Keuze is voor High SPL):**
 De kracht die het lint in beweging brengt is de Lorentzkracht: $F = B \times I \times L$.
@@ -47,9 +54,9 @@ De versnelling van het lint (en dus de geluidsdruk/SPL die gegenereerd wordt) vo
 
 $$a = \frac{F}{m}$$
 
-Als je $0.1\text{ mm}$ folie gebruikt, wordt de massa $m$ **10 keer zo groot**. Dit betekent dat bij dezelfde versterkerstroom de versnelling $a$ **10 keer kleiner** is! Je verliest hiermee ruim **10 tot 20 dB aan gevoeligheid/SPL**.
+Als je $0.1\text{ mm}$ folie of Kapton-backing gebruikt, wordt de massa $m$ gigantisch veel groter. Dit betekent dat bij dezelfde versterkerstroom de versnelling $a$ drastisch daalt.
 
-* **Conclusie:** Gebruik **altijd de dunne $0.01\text{ mm}$ (10 micron) huishoudfolie** voor de ribbon tweeter! Het dikke $0.1\text{ mm}$ folie is absoluut ongeschikt voor frequenties boven 3 kHz.
+* **Conclusie:** Gebruik **de dunne $0.01\text{ mm}$ (10 micron) huishoudfolie** zonder Kapton backing over de actieve lengte! Gebruik Kapton tape alleen lokaal op de klemeinden voor extra treksterkte.
 
 ---
 
@@ -78,11 +85,18 @@ De corrugatie (het plooien/golfplaten van het lint) is cruciaal voor de mechanis
 | **Diagonale / Visgraat (Chevron) Corrugatie** | Golfjes onder een hoek van $30^\circ - 45^\circ$ of in een V-patroon. | • Vliegtuigstijfheid in de breedte: voorkomt torsie en zijdelings 'schuren' tegen magneten.<br>• Zeer strakke lineaire beweging. | • Vereist speciaal 3D-geprint schuin tandwielpaar.<br>• Iets meer effectieve lengte/massa. | **Uitstekend (Beste voor lange linten van 12 cm)** |
 | **Vlak / Ongecorrugeerd Lint** | Volledig glad aluminiumfolie. | • Geen corrugator nodig.<br>• Laagste massa per lengte-eenheid. | • **Rampzalig voor High-SPL:** Vervormt/rekt direct permanent bij hitte/excursie.<br>• Heeft hevig storende resonanties. | **Absoluut Ongeschikt** |
 
-#### **2. Corrugatiediepte / Amplitude (Voor- en Nadelen)**
+#### **2. Vorm van de Rimpel: Afgerond (Sinus) vs. Scherp Gefouwen (Scherpe Hoeken)**
+
+| Profiel | Eigenschappen | Fysisch Effect op het Lint | Oordeel |
+| :--- | :--- | :--- | :--- |
+| **Afgerond (Sinusgolf)** | Vloeiende, ronde golven (gemaakt met ronde tandwiel-tanden). | • Spanningen worden gelijkmatig verdeeld over de curve.<br>• Voorkomt mechanische concentratiepunten.<br>• **Geen metaalmoeheid:** Het aluminium blijft flexibel en scheurt niet in. | **Verplicht / Beste Keuze** |
+| **Scherp Gefold (V-hoeken / Scherpe vouwen)** | Scherpe vouwen met scherpe knikken in de hoeken. | • **Spanningsconcentratie op de vouwlijn:** De hoekjes werken als breeklijnen.<br>• Bij trillingen (high SPL) beweegt het metaal uitsluitend op de vouwlijn $\rightarrow$ **Snelle metaalmoeheid en inscheuring.**<br>• Veroorzaakt merkbare harmonische mechanische pieken/vervorming. | **Afrader / Ongeconditioneerd Slecht** |
+
+#### **3. Corrugatiediepte / Amplitude (Voor- en Nadelen)**
 * **Ondiepe Corrugatie (0.2 – 0.3 mm diepte):**
   * *Voordeel:* Minimale lengte-toename van de folie, dus laagste weerstand en hoogste efficiëntie.
   * *Nadeel:* Weinig veerweg/excursie. Kan bij hoge SPL snel uitrekken of inscheuren.
-* **Middelgrote Corrugatie (0.5 – 0.8 mm diepte) [OPTIAAL FOR PA]:**
+* **Middelgrote Corrugatie (0.5 – 0.8 mm diepte) [OPTIMAAL VOOR PA]:**
   * *Voordeel:* **Perfecte balans.** Voldoende mechanische veerweg voor lage vervorming bij $4\text{ kHz}$ wethoudende slagen, zonder overtollige massa.
 * **Diepe Corrugatie (> 1.0 mm diepte):**
   * *Voordeel:* Extreem elastisch, kan gigantische uitslag maken.
