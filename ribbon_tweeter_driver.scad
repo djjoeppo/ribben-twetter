@@ -1,15 +1,16 @@
 // ==============================================================================
-// OpenSCAD Parametric Ribbon Tweeter Driver - Ultimate Production Version
+// OpenSCAD Parametric Ribbon Tweeter Driver - V9 (Clean Foil Path & Wire Terminals)
 // Features:
-// 1. ZIJ-INLOOP MAGNEETSLEUVEN MET M3 BORGBOUTGATEN: Magneten schuiven van de
-//    zijkant naar binnen en worden geborgd met M3 schroefjes zodat ze er nooit
-//    uit kunnen trillen.
-// 2. DIEPE KERN-CENTRERING (Z = 10mm): Lint rust exact op Z = 10mm in het spleetmidden.
-// 3. MIDDENBRUG MET TPU DEMPINGSKLEM: Vrije akoestische doorgang met ondersteuning bij Y=0.
-// 4. KOPER TAPE & KABEL-GLEUVEN: Uitsparingen voor soldeerdraden naar de trafo.
-// 5. GEÏNTEGREERDE TRAFO/CONDENSATOR BEVESTIGINGS-OREN: M4 montagelijnen aan de
-//    achterzijde van de behuizing voor het opschroeven van de trafo & 3.7uF condensator.
-// 6. LOSSE TPU DEMPINGSPAKKINGEN: 3D-geprinte TPU sluitstrips tegen inscheuren.
+// 1. VOLLEDIG GLADDE & VLAKKE LINT-LOPER (GEEN RIMPELS/RUGGEN):
+//    Het lintkanaal op Z = 10.0mm is over de VOLLEDIGE lengte van Y=-85mm tot Y=+85mm
+//    geheel vlak en kaarsrecht gefreesd. Nul obstakels of opstaande plastic randjes!
+// 2. KOPSE SOLDEER- & KLEMTERMONALS VOOR DIKKE KOPERDRAAD:
+//    Aan de uiterste bovenzijde (Y=+72.5mm) en onderzijde (Y=-72.5mm) zitten extra brede
+//    soldeervakken voor de koperfolie-tape. In de klemblokken en behuizing zitten
+//    3.5mm draadgleuven waarin je de dikke (1.5mm - 2.5mm) secundaire trafo-koperdraden
+//    rechtstreeks op het koperfolie kunt klemmen en solderen!
+// 3. MIDDENKLEM MET ZACHTE TPU SLEUF:
+//    De middenklem op Y=0mm valt in een vlakke 1.0mm verdieping zonder de folie op te bollen.
 // ==============================================================================
 
 // --- PARAMETERS (All dimensions in mm) ---
@@ -47,20 +48,20 @@ module ribbon_tweeter_driver_body() {
                       ribbon_length + 8.0 + 2*front_flange_w,
                       front_flange_t], center=true);
 
-            // Achterste montagelabben voor Trafo & 3.7uF Condensator (aan de zijkanten)
+            // Achterste montagelabben voor Trafo & 3.7uF Condensator
             for (sy = [-1, 1]) {
                 translate([0, sy * (body_height/2 + 8), body_depth/2])
                     cube([body_width, 16, body_depth], center=true);
             }
         }
 
-        // B. OPEN LUCHTSPLEET (Met solide middenbrug bij Y=0 op Z=10mm)
+        // B. OPEN LUCHTSPLEET (Alleen in de actieve magneetzones: Y = -60mm..-2mm en Y = +2mm..+60mm)
         for (sy = [-1, 1]) {
             translate([0, sy * (ribbon_length/4 + 2), body_depth/2])
                 cube([gap_width, ribbon_length/2 - 4, body_depth + 4], center=true);
         }
 
-        // C. ZIJ-INLOOP MAGNEETSLEUVEN MET BORGGATEN
+        // C. ZIJ-INLOOP MAGNEETSLEUVEN
         for (sy = [-1, 1]) {
             // Links magneetsleuf
             translate([-(gap_width/2 + inner_wall_t + total_mag_thick/2), sy * (mag_length/2 + 2), ribbon_z])
@@ -78,7 +79,7 @@ module ribbon_tweeter_driver_body() {
                 cube([body_width/2 - (gap_width/2 + inner_wall_t) + 0.1, mag_length + 0.4, mag_height + 0.3], center=true);
         }
 
-        // Magneet Borgschroefgaten (M3 borging aan het einde van de sleuf)
+        // Magneet Borgschroefgaten (M3 borging)
         for (sy = [-1, 1]) {
             for (sx = [-1, 1]) {
                 translate([sx * (body_width/2 - 3), sy * (mag_length/2 + 2), 0])
@@ -86,31 +87,33 @@ module ribbon_tweeter_driver_body() {
             }
         }
 
-        // D. KOPSE LINTKLEM ZITTINGEN & KABELGOOTJES
+        // D. VOLLEDIG VLAK LINTKANAAL (Z = 10.0mm van Y=-85mm tot Y=+85mm)
+        // Dit haalt ALLE RIMPELS/RUGGEN WEG aan de binnenkant!
+        translate([0, 0, ribbon_z + body_depth/4 + 0.01])
+            cube([gap_width + 12, body_height + 2, body_depth/2], center=true);
+
+        // E. KOPSE KOPERDRAAD SOLDEER- & KLEMGOOTJES (Voor dikke 1.5mm - 2.5mm trafo koperdraad)
         for (sy = [-1, 1]) {
-            translate([0, sy * (ribbon_length/2 + 12.5), ribbon_z + body_depth/4])
-                cube([gap_width + 20, 22, body_depth/2 + 0.1], center=true);
+            // Ruime uitsparing voor koperfolie tape pad
+            translate([0, sy * (ribbon_length/2 + 15), ribbon_z - 0.5])
+                cube([gap_width + 24, 25, 5], center=true);
 
-            // Kabel-uitgangsgootjes voor trafo-draden naar achteren
-            translate([0, sy * (ribbon_length/2 + 22), ribbon_z])
-                cube([8.0, 10, 6.0], center=true);
+            // Koperdraad geleide-gleuf naar achteren
+            translate([0, sy * (ribbon_length/2 + 22), ribbon_z - 1.5])
+                cube([4.5, 15, 6.0], center=true);
         }
-
-        // E. MIDDENKLEM ZITTING
-        translate([0, 0, ribbon_z + body_depth/4])
-            cube([gap_width + 8, 6, body_depth/2 + 0.1], center=true);
 
         // F. SCHROEFGATEN VOOR KOPSE KLEMMEN (4x M3 per klem)
         for (sy = [-1, 1]) {
             for (sx = [-1, 1]) {
                 for (sy_inner = [-1, 1]) {
-                    translate([sx * (gap_width/2 + 6), sy * (ribbon_length/2 + 12.5) + sy_inner * 6, 0])
+                    translate([sx * (gap_width/2 + 7), sy * (ribbon_length/2 + 15) + sy_inner * 7, 0])
                         cylinder(d=3.5, h=body_depth + 2, $fn=32);
                 }
             }
         }
 
-        // G. SCHROEFGATEN VOOR MIDDENKLEM (2x M3)
+        // G. SCHROEFGATEN VOOR COMPACTE MIDDENKLEM (2x M3)
         for (sx = [-1, 1]) {
             translate([sx * (gap_width/2 + 3.5), 0, 0])
                 cylinder(d=3.5, h=body_depth + 2, $fn=32);
@@ -141,31 +144,35 @@ module ribbon_tweeter_driver_body() {
     }
 }
 
-// --- MODULE 2: ROBUUSTE KOPSE LINTKLEM STRIP (PETG/ABS) ---
-module large_end_clamp() {
+// --- MODULE 2: ROBUUSTE KOPSE LINTKLEM STRIP MET KOPERDRAAD GLEUF (PETG/ABS) ---
+module large_end_clamp_with_wire_notch() {
     difference() {
-        cube([gap_width + 20, 22, 4], center=true);
+        cube([gap_width + 24, 25, 5], center=true);
+        // 4x M3 schroefgaten
         for (sx = [-1, 1]) {
             for (sy = [-1, 1]) {
-                translate([sx * (gap_width/2 + 6), sy * 6, 0])
-                    cylinder(d=3.5, h=6, center=true, $fn=32);
+                translate([sx * (gap_width/2 + 7), sy * 7, 0])
+                    cylinder(d=3.5, h=8, center=true, $fn=32);
             }
         }
+        // Draadklem gleuf voor dikke 1.5mm - 2.5mm koperdraad
+        translate([0, 0, -1])
+            cube([4.5, 27, 3.5], center=true);
     }
 }
 
 // --- MODULE 3: TPU FLEXIBELE DEMPINGSPAKKING (Tussen Lint & Klem) ---
 module tpu_flex_gasket() {
     difference() {
-        cube([gap_width + 20, 22, 1.2], center=true);
+        cube([gap_width + 24, 25, 1.2], center=true);
         for (sx = [-1, 1]) {
             for (sy = [-1, 1]) {
-                translate([sx * (gap_width/2 + 6), sy * 6, 0])
+                translate([sx * (gap_width/2 + 7), sy * 7, 0])
                     cylinder(d=3.5, h=3, center=true, $fn=32);
             }
         }
-        // Vrije geluidsopening in het midden van de pakking
-        cube([gap_width, 18, 3], center=true);
+        // Vrije opening voor koperfolie contactgebied
+        cube([gap_width, 20, 3], center=true);
     }
 }
 
@@ -183,9 +190,9 @@ module compact_center_clamp() {
 // --- RENDER DRIVER ASSEMBLY ---
 ribbon_tweeter_driver_body();
 
-// Losse onderdelen ter illustratie naast de behuizing getekend
-translate([body_width/2 + 30, 50, 2.0]) large_end_clamp();
+// Losse klemmen ter illustratie naast de behuizing getekend
+translate([body_width/2 + 30, 50, 2.5]) large_end_clamp_with_wire_notch();
 translate([body_width/2 + 30, 25, 0.6]) tpu_flex_gasket();
 translate([body_width/2 + 30, 0, 1.5]) compact_center_clamp();
 translate([body_width/2 + 30, -25, 0.6]) tpu_flex_gasket();
-translate([body_width/2 + 30, -50, 2.0]) large_end_clamp();
+translate([body_width/2 + 30, -50, 2.5]) large_end_clamp_with_wire_notch();
