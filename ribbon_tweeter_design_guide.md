@@ -138,7 +138,36 @@ In `ribbon_waveguide.scad` kun je nu simpel instellen:
 
 ---
 
-## 5. Master Matrix: Integraal Berekeningsmodel & Optimale Verhoudingen
+## 5. Ultieme Aanbevelingen voor Luid & Zuiver Geluid (De Winnaars)
+
+Om het **maximale geluidsniveau (SPL)** te behalen met de **allerhoogste zuiverheid en reikwijdte**, kies je voor deze specifieke configuratie:
+
+1. **Lint & Materiaal:**
+   * **Huishoudfolie ($10\ \mu\text{m} / 0.01\text{ mm}$):** Lichte massa ($32.4\text{ mg}$) geeft $2570\text{ G}$ versnelling.
+   * **Geen Kapton backing over de lengte:** Kapton tape *alleen op de klemeinden ($10\text{ mm}$)* gebruiken.
+   * **Kaarsrechte uitlijning ($180^\circ$ vlak):** Zowel boven als onder in exact hetzelfde vlak (geen V-hoek in het lint).
+
+2. **Corrugatie (Rimpelen):**
+   * **Visgraat / Chevron V-vorm:** $90^\circ - 120^\circ$ tophoek ($30^\circ - 45^\circ$ schuin).
+   * **Sinusvormige (ronde) tanden:** Straal $\approx 0.3 - 0.5\text{ mm}$ (geen scherpe knikken) en $0.5 - 0.7\text{ mm}$ diepte.
+
+3. **Magneetmotor:**
+   * **2 gestapelde N52 magneten per pool:** Geeft $\approx 0.68\text{ T}$ fluxdichtheid (+6 dB SPL winst).
+   * **$12\text{ mm}$ spleetbreedte:** $1.0\text{ mm}$ luchtmarge rond het $10\text{ mm}$ lint.
+
+4. **Waveguide / Hoorn:**
+   * **Holle Exponentiële Curve (`flare_type = "exponential"`):** Vloeiende expansie voorkomt interne reflecties.
+   * **Afgeronde Monding (Mouth Round-over radius $\ge 15\text{ mm}$):** Elimineert randdiffractie voor kaarsrecht hoog.
+   * **Diepte van $50\text{ mm}$:** Laadt het lint akoestisch vanaf $3.5\text{ kHz}$ (+4 tot +6 dB extra SPL).
+   * **Vlakke kopse wanden (boven/onder):** Houdt de verticale spreiding strak op $10^\circ$ voor de Line Array cilindrische golffront.
+
+5. **Transformator & Filter:**
+   * **$17 : 1$ Wikkelverhouding ($N_p = 34, N_s = 2$):** Vormt de $0.037\ \Omega$ lintweerstand om naar $10.7\ \Omega$.
+   * **$3.7\ \mu\text{F}$ Audio Condensator:** Geef een perfecte 1e orde $4.0\text{ kHz}$ crossover.
+
+---
+
+## 6. Master Matrix: Integraal Berekeningsmodel & Optimale Verhoudingen
 
 | Parameter / Onderdeel | Berekende Optimale Waarde | Fysische / Akoestische Onderbouwing & Ratio |
 | :--- | :--- | :--- |
