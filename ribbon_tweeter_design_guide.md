@@ -94,7 +94,40 @@ In `ribbon_waveguide.scad` kun je nu simpel instellen:
 * `flare_type = "conical";` (Rechte $45^\circ$ wanden).
 * `horn_depth = 50.0;` (Diepere hoorn voor nog bredere expansie).
 
-### 4.2 Montage van de Waveguide op het Tweeter-Frame & 3D-Printbaarheid
+### 4.2 Diepgaande Akoestische Analyse van Hoorn-Curves, Lengte & Kopse Wanden
+
+#### **1. Holle Curve (Concave / Exponentieel) vs. Bolle Curve (Convex)**
+* **Holle Curve (Concave / Exponentieel / Tractrix - AANBEVOLEN):**
+  * *Werking:* Expandeert langzaam bij de keel en waaaiert aan het einde snel uit.
+  * *Akoestisch effect:* Biedt een constante hanteerbare drukbelasting op het lint. De geluidsgolven stromen vloeiend naar buiten zonder interne reflecties terug te kaatsen naar de folie.
+* **Bolle Curve (Convex / Naar binnen gebogen):**
+  * *Werking:* Verbreedt hevig bij de keel en vernauwt of bolt daarna naar de monding.
+  * *Akoestisch effect:* **Disastreus.** Werkt als een akoestische obstructie. Veroorzaakt interne staande golven, resonantie-pieken en hevige fase-uitdoving. Reflecties kaatsen direct terug op het delicate aluminium lint.
+
+#### **2. Effect van een Afgeronde Monding (Mouth Round-over / Ronde Randen)**
+* **Scherpe Rand aan de Monding:**
+  * Wanneer de geluidsgolf het uiteinde van de hoorn bereikt en plotseling de 'vrije lucht' ontmoet, ontstaat er **randdiffractie (edge diffraction)**. De scherpe rand gedraagt zich als een secundaire geluidsbron die reflecties terug de hoorn in stuurt, wat leidt tot rimpels in de frequentierespons.
+* **Verder Rondlopende Rand (Mouth Roll-off / Round-over Radius):**
+  * Door de randen van de hoornmonding met een royale straal (radius $\ge 15-20\text{ mm}$) vloeiend af te ronden naar de achterkant, "rolt" de geluidsgolf geleidelijk af. Randdiffractie wordt nagenoeg geëlimineerd, wat zorgt voor een kaarsrechte frequentierespons en een extreem natuurlijk geluidsbeeld.
+
+#### **3. Invloed van de Lengte / Diepte van de Waveguide**
+* **Korte Waveguide ($10 - 20\text{ mm}$ diepte):**
+  * *Werking:* Laadt alleen de allestruisste hoge frequenties ($>10\text{ kHz}$).
+  * *Akoestisch effect:* Biedt nauwelijks SPL-winst in het kritische $3.5\text{ kHz} - 5\text{ kHz}$ gebied en nauwelijks richtwerking.
+* **Diepe Waveguide ($40 - 70\text{ mm}$ diepte) [OPTIMAAL VOOR PA]:**
+  * *Werking:* Verlaagt de akoestische keelfrequentie (cutoff frequency $f_c$).
+  * *Akoestisch effect:* Laadt en versterkt het geluid vanaf $3.5\text{ kHz}$ met **+4 dB tot +6 dB extra SPL**. Biedt uitstekende sturing en draagwijdte outdoor.
+
+#### **4. De Functie van de Kopse Wanden (Boven- en Onderzijde)**
+* **Functie bij een Line Array:**
+  * De kopse (verticale) wanden begrenzen de verticale spreiding tot **$10^\circ$**.
+  * Zonder strakke kopse wanden zou het geluid verticaal alle kanten op 'lekken' (bolvormige afstraling), waardoor de energie verloren gaat naar de lucht en de grond.
+  * Door de kopse wanden recht of licht sturend te houden, dwing je het geluid in een **cilindrische schijf (Line Array golffront)** die 2 tot 3 keer verder draagt buiten!
+  * Bovendien zorgen vlakke kopse wanden ervoor dat meerdere ribbon-units boven elkaar naadloos op elkaar aansluiten om één lange, continue lijnbron te vormen.
+
+---
+
+### 4.3 Montage van de Waveguide op het Tweeter-Frame & 3D-Printbaarheid
 1. **Montage met Keelflens (Throat Flange):**
    * De waveguide is voorzien van een **keelflens met 6x M3 boutgaten**.
    * Deze flens wordt met M3 bouten en M3 hitte-insmeltmoeren (heat-set inserts) of moeruitsparingen rechtstreeks luchtdicht op de voorzijde van het PETG-CF/ABS tweeter-frame geschroefd.
