@@ -1,16 +1,9 @@
 // ==============================================================================
-// OpenSCAD Parametric Ribbon Tweeter Driver - V6 (Precision Magnet Pockets & Center Bridge)
-// Features:
-// 1. EXACT MAGNET POCKET DIMENSIONS:
-//    Magneetsleuven van exact 10.3mm breed in X (voor 2x gestapelde 5mm N52 magneten).
-//    Gepositioneerd van X=7.0mm tot X=17.3mm, rustend tegen de 1.0mm binnenwand.
-// 2. KERN-CENTRERING (Z-AS):
-//    De magneten beslaan Z = 5mm tot 15mm (10mm breed). Het lint rust op een zitting op
-//    Z = 10mm, waardoor het lint PRECIES in het magnetisch hart (Z = 10mm) ligt!
-// 3. MIDDENKLEM BRUG (CENTER BRIDGE):
-//    In de luchtspleet bij Y = 0mm zit een solide plastic brug/vloer op Z = 10mm.
-//    Hier rust het lint op en drukt de TPU middenklem de folie stevig vast.
-// 4. OPEN ACHTERKANT: Vrije akoestische doorgang boven en onder de middenbrug.
+// OpenSCAD Parametric Ribbon Tweeter Driver - V7 (Front/Rear Separated Flanges)
+// Layout:
+// 1. VOORKANT (Z = 20mm): Vlakke flens met 6x M3 gaten voor de WAVEGUIDE HOORN.
+// 2. ACHTERKANT (Z = 0mm): Uitsparingen voor de 3 LINTKLEMMEN (2x robuust, 1x midden).
+// 3. MIDDEN (Z = 10mm): Magneetsleuven van de zijkanten + magneetspleet.
 // ==============================================================================
 
 // --- PARAMETERS (All dimensions in mm) ---
@@ -36,40 +29,36 @@ ribbon_z        = body_depth / 2.0;            // Ribbon plane exact centered at
 // --- MODULE 1: HOOFDBEHIUZING (DRIVER BODY) ---
 module ribbon_tweeter_driver_body() {
     difference() {
-        // A. Massief hoofdblok met voorste keelflens
+        // A. Massief hoofdblok met VOORSTE KEELFLENS (Z = 20mm)
         union() {
             // Hoofdblok
             translate([0, 0, body_depth/2])
                 cube([body_width, body_height, body_depth], center=true);
 
-            // Voorste keelflens (passend op waveguide flens)
+            // VOORSTE FLENS VOOR WAVEGUIDE MONTAGE (op Z = 20mm)
             translate([0, 0, body_depth - front_flange_t/2])
                 cube([gap_width + 8.0 + 2*front_flange_w,
                       ribbon_length + 8.0 + 2*front_flange_w,
                       front_flange_t], center=true);
         }
 
-        // B. OPEN LUCHTSPLEET (Gesplitst in 2 openingen van Y=-60 tot Y=-3 en Y=+3 tot Y=+60)
-        // Hierdoor blijft er op Y=0 een solide brug staan op Z=10mm voor de middenklem!
+        // B. OPEN LUCHTSPLEET (Met solide middenbrug bij Y=0 op Z=10mm)
         for (sy = [-1, 1]) {
             translate([0, sy * (ribbon_length/4 + 2), body_depth/2])
                 cube([gap_width, ribbon_length/2 - 4, body_depth + 4], center=true);
         }
 
-        // C. EXACT MAATVASTE ZIJ-INLOOP MAGNEETSLEUVEN
-        // Magneten zijn 10mm dik in X, 60mm lang in Y, 10mm hoog in Z.
-        // Magneten liggen van X = 7.0mm tot 17.3mm (strakke sleuf van 10.3mm breed).
-        // Magneten liggen in Z exact van Z = 5mm tot Z = 15mm (gecentreerd op Z = 10mm).
+        // C. ZIJ-INLOOP MAGNEETSLEUVEN (Gecentreerd op Z = 10mm)
         for (sy = [-1, 1]) {
-            // Links magneetsleuf (X = -12.15mm center)
+            // Links magneetsleuf
             translate([-(gap_width/2 + inner_wall_t + total_mag_thick/2), sy * (mag_length/2 + 2), ribbon_z])
                 cube([total_mag_thick + 0.3, mag_length + 0.4, mag_height + 0.3], center=true);
 
-            // Rechts magneetsleuf (X = +12.15mm center)
+            // Rechts magneetsleuf
             translate([(gap_width/2 + inner_wall_t + total_mag_thick/2), sy * (mag_length/2 + 2), ribbon_z])
                 cube([total_mag_thick + 0.3, mag_length + 0.4, mag_height + 0.3], center=true);
 
-            // Invoersleuven vanaf het zijkantoppervlak tot aan het magneetvak
+            // Invoersleuven vanaf de zijkant
             translate([-(body_width/2 + gap_width/2 + inner_wall_t)/2, sy * (mag_length/2 + 2), ribbon_z])
                 cube([body_width/2 - (gap_width/2 + inner_wall_t) + 0.1, mag_length + 0.4, mag_height + 0.3], center=true);
 
@@ -77,17 +66,17 @@ module ribbon_tweeter_driver_body() {
                 cube([body_width/2 - (gap_width/2 + inner_wall_t) + 0.1, mag_length + 0.4, mag_height + 0.3], center=true);
         }
 
-        // D. KOPSE KLEM-ZITTINGEN (Ondiepe uitsparing van 2.5mm diep op Z = 10mm)
+        // D. ACHTERKANT: KOPSE LINTKLEM ZITTINGEN (Z = 0mm, uitsparing van 2.5mm diep aan de ACHTERZIJDE)
         for (sy = [-1, 1]) {
-            translate([0, sy * (ribbon_length/2 + 12.5), ribbon_z + 1.25])
+            translate([0, sy * (ribbon_length/2 + 12.5), 1.25])
                 cube([gap_width + 20, 22, 2.5], center=true);
         }
 
-        // E. MIDDENKLEM ZITTING (Ondiepe uitsparing van 2.5mm diep op Z = 10mm bovenop de middenbrug)
-        translate([0, 0, ribbon_z + 1.25])
+        // E. ACHTERKANT: MIDDENKLEM ZITTING (Z = 0mm, uitsparing van 2.5mm diep aan de ACHTERZIJDE)
+        translate([0, 0, 1.25])
             cube([gap_width + 8, 6, 2.5], center=true);
 
-        // F. SCHROEFGATEN VOOR ROBUUSTE KOPSE KLEMMEN (4x M3 per kopse klem)
+        // F. SCHROEFGATEN VOOR ACHTERSTE LINTKLEMMEN (M3 schroefgaten door de klemzones)
         for (sy = [-1, 1]) {
             for (sx = [-1, 1]) {
                 for (sy_inner = [-1, 1]) {
@@ -97,13 +86,13 @@ module ribbon_tweeter_driver_body() {
             }
         }
 
-        // G. SCHROEFGATEN VOOR COMPACTE MIDDENKLEM (2x M3 in de middenbrug)
+        // G. SCHROEFGATEN VOOR ACHTERSTE MIDDENKLEM (2x M3)
         for (sx = [-1, 1]) {
             translate([sx * (gap_width/2 + 3.5), 0, 0])
                 cylinder(d=3.5, h=body_depth + 2, $fn=32);
         }
 
-        // H. WAVEGUIDE MONTAGEGATEN (6x M3 hitte-insmeltgaten op de voorflens)
+        // H. VOORKANT: WAVEGUIDE MONTAGEGATEN (6x M3 hitte-insmeltgaten op Z = 20mm op de voorflens)
         t_hx = (gap_width / 2) + 4.0 + (front_flange_w / 2);
         t_hy = (ribbon_length / 2) + 4.0 + (front_flange_w / 2);
 
@@ -120,7 +109,7 @@ module ribbon_tweeter_driver_body() {
     }
 }
 
-// --- MODULE 2: ROBUUSTE KOPSE LINTKLEM STRIP (Boven & Onder) ---
+// --- MODULE 2: ROBUUSTE KOPSE LINTKLEM STRIP (Achterzijde Boven & Onder) ---
 module large_end_clamp() {
     difference() {
         cube([gap_width + 20, 22, 4], center=true);
@@ -133,7 +122,7 @@ module large_end_clamp() {
     }
 }
 
-// --- MODULE 3: ULTRA-COMPACTE MIDDENKLEM STRIP (TPU) ---
+// --- MODULE 3: ULTRA-COMPACTE MIDDENKLEM STRIP (Achterzijde Midden - TPU) ---
 module compact_center_clamp() {
     difference() {
         cube([gap_width + 8, 5, 3], center=true);
