@@ -1,14 +1,19 @@
 // ==============================================================================
-// OpenSCAD Parametric Ribbon Tweeter Driver - V7 (Front/Rear Separated Flanges)
-// Layout:
-// 1. VOORKANT (Z = 20mm): Vlakke flens met 6x M3 gaten voor de WAVEGUIDE HOORN.
-// 2. ACHTERKANT (Z = 0mm): Uitsparingen voor de 3 LINTKLEMMEN (2x robuust, 1x midden).
-// 3. MIDDEN (Z = 10mm): Magneetsleuven van de zijkanten + magneetspleet.
+// OpenSCAD Parametric Ribbon Tweeter Driver - V8 (Deep Ribbon Seating at Z=10mm)
+// Features:
+// 1. LINT LIGT DIEP IN HET SYSTEEM (Z = 10.0mm): De zittingen voor het lint zijn 10mm
+//    DIEP ingesneden vanaf de voorkant (Z = 20mm tot Z = 10mm).
+//    Het lint rust nu exact op Z = 10.0mm, PRECIES in de KERN van de N52 magneten (Z=5..15mm)!
+// 2. KLEMSTRIPS VALLEN IN DE DIEPE KANALEN: De 4mm dikke klemmen klemmen het lint vast
+//    op Z=10mm en steken slechts tot Z=14mm, zodat het lint en de klemmen diep verzonken
+//    in de behuizing liggen.
+// 3. ZIJ-INLOOP MAGNEETSLEUVEN: Magneten schuiven van de zijkant in (Z = 5mm..15mm).
+// 4. OPEN ACHTERKANT: Akoestische doorgang onder de magneten (Z = 0mm..10mm).
 // ==============================================================================
 
 // --- PARAMETERS (All dimensions in mm) ---
 mag_length      = 60.0;     // Lengte van N52 magneet (60mm along Y)
-mag_height      = 10.0;     // Hoogte van N52 magneet (10mm along Z)
+mag_height      = 10.0;     // Hoogte van N52 magneet (10mm along Z: van Z=5 tot Z=15)
 mag_thick       = 5.0;      // Dikte van N52 magneet (5mm along X)
 num_mags_stack  = 2;        // 2 magneten gestapeld per pool = 10mm dikte in X
 
@@ -48,7 +53,7 @@ module ribbon_tweeter_driver_body() {
                 cube([gap_width, ribbon_length/2 - 4, body_depth + 4], center=true);
         }
 
-        // C. ZIJ-INLOOP MAGNEETSLEUVEN (Gecentreerd op Z = 10mm)
+        // C. ZIJ-INLOOP MAGNEETSLEUVEN (Gecentreerd op Z = 10mm, d.w.z. van Z=5mm tot Z=15mm)
         for (sy = [-1, 1]) {
             // Links magneetsleuf
             translate([-(gap_width/2 + inner_wall_t + total_mag_thick/2), sy * (mag_length/2 + 2), ribbon_z])
@@ -66,17 +71,18 @@ module ribbon_tweeter_driver_body() {
                 cube([body_width/2 - (gap_width/2 + inner_wall_t) + 0.1, mag_length + 0.4, mag_height + 0.3], center=true);
         }
 
-        // D. ACHTERKANT: KOPSE LINTKLEM ZITTINGEN (Z = 0mm, uitsparing van 2.5mm diep aan de ACHTERZIJDE)
+        // D. DIEPE KOPSE KLEM-ZITTINGEN (10mm DIEP ingesneden vanaf Z=20mm tot Z=10mm)
+        // Het lint rust nu EXACT op Z = 10mm (in het hart van de magneten!)
         for (sy = [-1, 1]) {
-            translate([0, sy * (ribbon_length/2 + 12.5), 1.25])
-                cube([gap_width + 20, 22, 2.5], center=true);
+            translate([0, sy * (ribbon_length/2 + 12.5), ribbon_z + body_depth/4])
+                cube([gap_width + 20, 22, body_depth/2 + 0.1], center=true);
         }
 
-        // E. ACHTERKANT: MIDDENKLEM ZITTING (Z = 0mm, uitsparing van 2.5mm diep aan de ACHTERZIJDE)
-        translate([0, 0, 1.25])
-            cube([gap_width + 8, 6, 2.5], center=true);
+        // E. DIEPE MIDDENKLEM ZITTING (10mm DIEP ingesneden vanaf Z=20mm tot Z=10mm)
+        translate([0, 0, ribbon_z + body_depth/4])
+            cube([gap_width + 8, 6, body_depth/2 + 0.1], center=true);
 
-        // F. SCHROEFGATEN VOOR ACHTERSTE LINTKLEMMEN (M3 schroefgaten door de klemzones)
+        // F. SCHROEFGATEN VOOR KOPSE KLEMMEN (M3 schroefgaten door het solide onderplatform)
         for (sy = [-1, 1]) {
             for (sx = [-1, 1]) {
                 for (sy_inner = [-1, 1]) {
@@ -86,7 +92,7 @@ module ribbon_tweeter_driver_body() {
             }
         }
 
-        // G. SCHROEFGATEN VOOR ACHTERSTE MIDDENKLEM (2x M3)
+        // G. SCHROEFGATEN VOOR MIDDENKLEM (2x M3 in het solide onderplatform)
         for (sx = [-1, 1]) {
             translate([sx * (gap_width/2 + 3.5), 0, 0])
                 cylinder(d=3.5, h=body_depth + 2, $fn=32);
@@ -109,7 +115,7 @@ module ribbon_tweeter_driver_body() {
     }
 }
 
-// --- MODULE 2: ROBUUSTE KOPSE LINTKLEM STRIP (Achterzijde Boven & Onder) ---
+// --- MODULE 2: ROBUUSTE KOPSE LINTKLEM STRIP (Valt 4mm diep in de schacht op Z=10mm) ---
 module large_end_clamp() {
     difference() {
         cube([gap_width + 20, 22, 4], center=true);
@@ -122,7 +128,7 @@ module large_end_clamp() {
     }
 }
 
-// --- MODULE 3: ULTRA-COMPACTE MIDDENKLEM STRIP (Achterzijde Midden - TPU) ---
+// --- MODULE 3: ULTRA-COMPACTE MIDDENKLEM STRIP (Valt 3mm diep in de schacht op Z=10mm) ---
 module compact_center_clamp() {
     difference() {
         cube([gap_width + 8, 5, 3], center=true);
